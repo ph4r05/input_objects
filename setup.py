@@ -25,10 +25,21 @@ docs_extras = [
     'sphinxcontrib-programoutput',
 ]
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+    long_description = long_description.replace("\r", '')
+
+except(IOError, ImportError):
+    import io
+    with io.open('README.md', encoding="utf-8") as f:
+        long_description = f.read()
+
 setup(
     name='input_objects',
     version=version,
     description='Input objects library',
+    long_description=long_description,
     url='https://github.com/ph4r05/input_objects',
     author='Dusan Klinec',
     author_email='dusan.klinec@gmail.com',
